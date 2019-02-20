@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="updateUser">
+    <form th:object="${userData}" th:action="@{/admin/updateUser/{userId}(userId = ${userData.userId})}" method="post">
+        <div>
+            <label>User ID: <input type="text" th:value="${userData.userId}" th:field="*{userId}"></label>
+        </div>
+        <div>
+            <label>User Name: <input type="text" th:value="${userData.userName}" th:field="*{userName}"></label>
+        </div>
+        <div>
+            <label>Age: <input type="text" th:value="${userData.userAge}" th:field="*{userAge}"></label>
+        </div>
+        <div>
+            <label>Gender: <input type="text" th:value="${userData.userGender}" th:field="*{userGender}"></label>
+        </div>
+        <div>
+            <label>Department: <input type="text" th:value="${userData.department}" th:field="*{department.deptName}"></label>
+        </div>
+        <div>
+            <label>Major: <input type="text" th:value="${userData.major}" th:field="*{major.majorName}"></label>
+        </div>
+        <div>
+            <label>Phone Number: <input type="text" th:value="${userData.phone}" th:field="*{phone}"></label>
+        </div>
+        <div>
+            <label>Email: <input type="text" th:value="${userData.email}" th:field="*{email}"></label>
+        </div>
+        <div>
+            <label>Role Name: <input type="text" th:value="${userData.role}" th:field="*{role.roleName}"></label>
+        </div>
+        <br>
+        <input type="submit" value="update">
+    </form>
+</div>
+</body>
+</html>

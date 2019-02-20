@@ -5,6 +5,7 @@ import com.clive.config.WebConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class Application extends AbstractAnnotationConfigDispatcherServletInitializer {
+
     protected Class<?>[] getRootConfigClasses() {
         return new Class[]{RootConfig.class};
     }

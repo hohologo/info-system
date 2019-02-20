@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="layout/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+</head>
+<body>
+<div class="addUser" layout:fragment="content">
+    <form th:object="${userData}" th:action="@{/admin/addUser}" method="post">
+        <div>
+            <label>User ID: <input type="text" th:value="${userData.userId}" th:field="*{userId}"></label>
+        </div>
+        <div>
+            <label>User Name: <input type="text" th:value="${userData.userName}" th:field="*{userName}"></label>
+        </div>
+        <div>
+            <label>Age: <input type="text" th:value="${userData.userAge}" th:field="*{userAge}"></label>
+        </div>
+        <div>
+            <label for="gender">Gender:
+                <select id="gender" th:field="*{userGender}">
+                    <option th:each="gender: ${genders}" name="gender"
+                            th:value="${gender}"
+                            th:text="${gender}"
+                            th:selected="${gender == userData.userGender}"></option >
+                </select>
+            </label>
+        </div>
+        <div>
+            <label for="department">Department:
+                <select id="department" th:field="*{department.deptId}">
+                    <option th:name="department" value="-1"></option>
+                    <option th:each="department:${departments}" name="department"
+                            th:value="${department.deptId}"
+                            th:text="${department.deptName}"
+                            th:selected="${department.deptId == userData.department.deptId}"></option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label for="major">Major:
+                <select id="major" th:field="*{major.majorId}">
+                    <option th:name="major" value="-1"></option>
+                    <option th:each="major:${majors}" name="major"
+                            th:value="${major.majorId}"
+                            th:text="${major.majorName}"
+                            th:selected="${major.majorId == userData.major.majorId}"></option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label>Phone Number: <input type="text" th:value="${userData.phone}" th:field="*{phone}"></label>
+        </div>
+        <div>
+            <label>Email: <input type="text" th:value="${userData.email}" th:field="*{email}"></label>
+        </div>
+        <div>
+            <label for="role">Role Name:
+                <select id="role" th:field="*{role.roleId}">
+                    <option th:each="role:${roles}" name="role"
+                            th:value="${role.roleId}"
+                            th:text="${role.roleName}"
+                            th:selected="${role.roleId == userData.role.roleId}"></option>
+                </select>
+            </label>
+        </div>
+        <br>
+        <input type="submit" value="submit">
+    </form>
+</div>
+<div layout:fragment="scripts">
+    <script th:src="@{/js/admin.js}"></script>
+</div>
+</body>
+</html>
