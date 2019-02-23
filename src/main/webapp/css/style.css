@@ -78,3 +78,15 @@ a:link, a:visited {
 .user-table{
     font-size: 0.9em;
 }
+
+.addUserForm small.errorMessage {
+    position: relative;
+    top: -10px;
+    color: red;
+}
+
+.updateUser small.errorMessage{
+    position: relative;
+    top: -10px;
+    color: red;
+}

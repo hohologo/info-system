@@ -1,8 +1,8 @@
 $("#department").change(function () {
-    var departmentId = $(this).val();
+    var deptId = $(this).val();
     $.ajax({
         type: "GET",
-        url: "/admin/department/" + departmentId + "/majors",
+        url: "/admin/department/" + deptId + "/majors",
         success: function (data) {
             var majors = $('#major');
             var option = "";

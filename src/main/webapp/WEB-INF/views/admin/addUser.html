@@ -12,12 +12,15 @@
     <form th:object="${userData}" th:action="@{/admin/addUser}" method="post">
         <div>
             <label>User ID: <input type="text" th:value="${userData.userId}" th:field="*{userId}"></label>
+            <small th:errors="*{userId}" class="errorMessage"></small>
         </div>
         <div>
             <label>User Name: <input type="text" th:value="${userData.userName}" th:field="*{userName}"></label>
+            <small th:errors="*{userName}" class="errorMessage"></small>
         </div>
         <div>
             <label>Age: <input type="text" th:value="${userData.userAge}" th:field="*{userAge}"></label>
+            <small th:errors="*{userAge}" class="errorMessage"></small>
         </div>
         <div>
             <label for="gender">Gender:
@@ -53,9 +56,11 @@
         </div>
         <div>
             <label>Phone Number: <input type="text" th:value="${userData.phone}" th:field="*{phone}"></label>
+            <small th:errors="*{phone}" class="errorMessage"></small>
         </div>
         <div>
             <label>Email: <input type="text" th:value="${userData.email}" th:field="*{email}"></label>
+            <small th:errors="*{email}" class="errorMessage"></small>
         </div>
         <div>
             <label for="role">Role Name:

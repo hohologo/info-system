@@ -9,7 +9,9 @@ import com.clive.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
@@ -21,7 +23,7 @@ public class AdminService {
     @Autowired
     private AdminRepository adminRepository;
 
-    public List<UserData> getUserList(){
+    public List<UserData> getUserList() {
 
         return adminRepository.getUserList();
 
@@ -34,21 +36,16 @@ public class AdminService {
 
     }
 
-    public void updateUser(UserData userData) {
+    public void updateUser(UserData userData, String userId) {
 
 //        Integer roleId = adminRepository.getRoleId(userData.getRole());
 
-        adminRepository.updateUser(userData);
+        adminRepository.updateUser(userData, userId);
     }
 
-    public UserData getUserByUserId(String userId) {
+    public void deleteUserDataByUserId(String userId) {
 
-        return adminRepository.getUserByUserId(userId);
-    }
-
-    public void deleteUser(Integer userId) {
-
-        adminRepository.deleteUser(userId);
+        adminRepository.deleteUserDataByUserId(userId);
     }
 
     public List<Department> getDepartmentList() {
@@ -56,9 +53,9 @@ public class AdminService {
         return adminRepository.getDepartmentList();
     }
 
-    public List<Major> getMajorListByDeptId(Integer departmentId) {
+    public List<Major> getMajorListByDeptId(Integer deptId) {
 
-        return adminRepository.getMajorListByDeptId(departmentId);
+        return deptId == null ? new ArrayList<>() : adminRepository.getMajorListByDeptId(deptId);
     }
 
     public List<Role> getRoleList() {
@@ -68,6 +65,13 @@ public class AdminService {
 
     public List<String> getGenders() {
 
-        return asList("Male","Female");
+        return asList("Male", "Female");
+    }
+
+    public UserData getUserDataById(String userId) {
+
+        return adminRepository.getUserDataByUserId(userId);
     }
 }
+
+

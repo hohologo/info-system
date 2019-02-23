@@ -8,14 +8,17 @@ import com.clive.model.UserData;
 import com.clive.repository.mapper.DepartmentRowMapper;
 import com.clive.repository.mapper.MajorRowMapper;
 import com.clive.repository.mapper.RoleRowMapper;
-import com.clive.repository.mapper.UserRowMapper;
+import com.clive.repository.mapper.UserDataRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
+
+import static java.sql.Timestamp.valueOf;
 
 @Repository
 public class AdminRepository {
@@ -45,7 +48,7 @@ public class AdminRepository {
                 "       left join major on user.major_id = major.major_id\n" +
                 "       left join role on user.role_id = role.role_id";
 
-        return jdbcTemplate.query(query, new UserRowMapper());
+        return jdbcTemplate.query(query, new UserDataRowMapper());
 
     }
 
@@ -55,8 +58,8 @@ public class AdminRepository {
         String query = "insert into user(user_id, user_name, user_age, user_gender, dept_id, major_id, phone, email, role_id, created_on) value(?,?,?,?,?,?,?,?,?,?)";
 
         jdbcTemplate.update(query, userData.getUserId(), userData.getUserName(), userData.getUserAge(),
-                userData.getUserGender(),userData.getDepartment().getDeptId(),userData.getMajor().getMajorId(),
-                userData.getPhone(), userData.getEmail(),userData.getRole().getRoleId(), Timestamp.valueOf(userData.getCreatedOn()));
+                userData.getUserGender(), userData.getDepartment().getDeptId(), userData.getMajor().getMajorId(),
+                userData.getPhone(), userData.getEmail(), userData.getRole().getRoleId(), valueOf(userData.getCreatedOn()));
     }
 
     public Integer getRoleId(Role roleName) {
@@ -71,25 +74,28 @@ public class AdminRepository {
         }
     }
 
-    public void updateUser(UserData userData) {
+    public void updateUser(UserData userData, String userId) {
 
         String query = "update user\n" +
                 "set user.user_id    = ?,\n" +
                 "    user.user_name   = ?,\n" +
                 "    user.user_age    = ?,\n" +
                 "    user.user_gender = ?,\n" +
-                "    user.department  = ?,\n" +
-                "    user.major       = ?,\n" +
+                "    user.dept_id  = ?,\n" +
+                "    user.major_id       = ?,\n" +
                 "    user.phone       = ?,\n" +
                 "    user.email       = ?,\n" +
+                "    user.role_id     = ?,\n" +
+                "    modified_on      = ?\n" +
                 "where user.user_id = ?";
 
         jdbcTemplate.update(query, userData.getUserId(), userData.getUserName(), userData.getUserAge(),
-                userData.getUserGender(), userData.getDepartment(), userData.getMajor(), userData.getPhone(), userData.getEmail(), userData.getUserId());
+                userData.getUserGender(), userData.getDepartment().getDeptId(), userData.getMajor().getMajorId(),
+                userData.getPhone(), userData.getEmail(), userData.getRole().getRoleId(), valueOf(LocalDateTime.now()), userData.getUserId());
 
     }
 
-    public UserData getUserByUserId(String userId) {
+    public UserData getUserDataByUserId(String userId) {
         String query = "select user.user_id,\n" +
                 "       user.user_name,\n" +
                 "       user.user_age,\n" +
@@ -111,20 +117,43 @@ public class AdminRepository {
                 "where user.user_id = ? ";
 
         try {
-            return jdbcTemplate.queryForObject(query, new UserRowMapper(), userId);
+            return jdbcTemplate.queryForObject(query, new UserDataRowMapper(), userId);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
 
     }
 
-    public void deleteUser(Integer userId) {
+    public List<UserData> getUserDatasByUserId(String userId) {
+        String query = "select user.user_id,\n" +
+                "       user.user_name,\n" +
+                "       user.user_age,\n" +
+                "       user.user_gender,\n" +
+                "       user.phone,\n" +
+                "       user.email,\n" +
+                "       user.created_on,\n" +
+                "       user.modified_on,\n" +
+                "       department.dept_id,\n" +
+                "       department.dept_name,\n" +
+                "       major.major_id,\n" +
+                "       major.major_name,\n" +
+                "       role.role_id,\n" +
+                "       role.role_name\n" +
+                "from user\n" +
+                "       left join department on user.dept_id = department.dept_id\n" +
+                "       left join major on user.major_id = major.major_id\n" +
+                "       left join role on user.role_id = role.role_id\n" +
+                "where user.user_id = ? ";
+
+            return jdbcTemplate.query(query, new UserDataRowMapper(), userId);
+    }
+
+    public void deleteUserDataByUserId(String userId) {
 
         String query = "delete from user where user_id = ?";
 
         jdbcTemplate.update(query, userId);
     }
-
 
     public List<Department> getDepartmentList() {
 
@@ -133,14 +162,6 @@ public class AdminRepository {
 
         return jdbcTemplate.query(query, new DepartmentRowMapper());
     }
-
-    public List<Major> getMajorList() {
-
-        String query = "select major.major_id, major.major_name from major";
-
-        return jdbcTemplate.query(query, new MajorRowMapper());
-    }
-
 
     public List<Role> getRoleList() {
 

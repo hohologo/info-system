@@ -3,6 +3,7 @@ package com.clive.controller;
 import com.clive.model.Major;
 import com.clive.model.UserData;
 import com.clive.service.AdminService;
+import com.clive.support.AdminValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,8 @@ import java.util.List;
 public class AdminController {
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private AdminValidator validator;
 
     @GetMapping("/users")
     public String getAllUsers(Model model) {
@@ -25,38 +28,32 @@ public class AdminController {
         List<UserData> users = adminService.getUserList();
         model.addAttribute("allUsers", users);
 
-        return "allUsers";
+        return "admin/allUsers";
     }
 
     @GetMapping("/addUser")
     public String addUserForm(Model model) {
 
         model.addAttribute("userData", new UserData());
-        appendOtherInfo(model);
+        appendOtherInfo(model, null);
 
-        return "addUser";
+        return "admin/addUser";
     }
 
     @PostMapping("/addUser")
     public String addUser(Model model, @Valid @ModelAttribute("userData") UserData userData, BindingResult bindingResult){
+        validator.validateUserId(bindingResult, userData.getUserId());
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("userData", userData);
-            appendOtherInfo(model);
+            appendOtherInfo(model, userData.getDepartment() == null ? null:userData.getDepartment().getDeptId());
+
+            return "admin/addUser";
         }
 
         adminService.addUser(userData);
 
         return "redirect:/admin/users";
-
-    }
-
-    public void appendOtherInfo(Model model) {
-
-        model.addAttribute("genders", adminService.getGenders());
-        model.addAttribute("departments", adminService.getDepartmentList());
-        model.addAttribute("majors", new ArrayList<Major>());
-        model.addAttribute("roles", adminService.getRoleList());
 
     }
 
@@ -68,28 +65,44 @@ public class AdminController {
 
     @GetMapping("/updateUser/{userId}")
     public String showUserInfo(Model model, @PathVariable String userId){
+        UserData userData = adminService.getUserDataById(userId);
+        model.addAttribute("userData", userData);
+        appendOtherInfo(model, userData.getDepartment() == null ? null:userData.getDepartment().getDeptId());
 
-        model.addAttribute("userData", adminService.getUserByUserId(userId));
-        appendOtherInfo(model);
-
-        return "updateUser";
+        return "/admin/updateUser";
     }
 
     @PostMapping("/updateUser/{userId}")
-    public String updateUserInfo(Model model, @Valid @PathVariable String userId, @ModelAttribute("userData") UserData userData){
+    public String updateUserInfo(Model model, @Valid @PathVariable String userId, @ModelAttribute("userData") UserData userData,BindingResult bindingResult){
 
-        adminService.updateUser(userData);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("userData", userData);
+            appendOtherInfo(model, userData.getDepartment() == null ? null : userData.getDepartment().getDeptId());
+
+            return "admin/updateUser";
+        }
+
+        adminService.updateUser(userData, userId);
 
         return "redirect:/admin/users";
 
     }
 
     @GetMapping("/deleteUser/{userId}")
-    public String deleteUserInfo(Model model, @PathVariable Integer userId) {
+    public String deleteUserInfo(Model model, @PathVariable String userId) {
 
-        adminService.deleteUser(userId);
+        adminService.deleteUserDataByUserId(userId);
 
         return "redirect:/admin/users";
+    }
+
+    public void appendOtherInfo(Model model, Integer deptId) {
+
+        model.addAttribute("genders", adminService.getGenders());
+        model.addAttribute("departments", adminService.getDepartmentList());
+        model.addAttribute("majors", adminService.getMajorListByDeptId(deptId));
+        model.addAttribute("roles", adminService.getRoleList());
+
     }
 
 }

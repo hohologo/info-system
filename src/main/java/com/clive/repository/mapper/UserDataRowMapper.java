@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-public class UserRowMapper implements RowMapper<UserData> {
+public class UserDataRowMapper implements RowMapper<UserData> {
 
 
     public UserData mapRow(ResultSet resultSet, int i) throws SQLException {
