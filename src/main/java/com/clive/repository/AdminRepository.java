@@ -1,14 +1,8 @@
 package com.clive.repository;
 
 
-import com.clive.model.Department;
-import com.clive.model.Major;
-import com.clive.model.Role;
-import com.clive.model.UserData;
-import com.clive.repository.mapper.DepartmentRowMapper;
-import com.clive.repository.mapper.MajorRowMapper;
-import com.clive.repository.mapper.RoleRowMapper;
-import com.clive.repository.mapper.UserDataRowMapper;
+import com.clive.model.*;
+import com.clive.repository.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -26,6 +20,7 @@ public class AdminRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
 
     public List<UserData> getUserList() {
 
@@ -46,7 +41,7 @@ public class AdminRepository {
                 "from user\n" +
                 "       left join department on user.dept_id = department.dept_id\n" +
                 "       left join major on user.major_id = major.major_id\n" +
-                "       left join role on user.role_id = role.role_id";
+                "       left join role on user.role_id = role.role_id order by user_id";
 
         return jdbcTemplate.query(query, new UserDataRowMapper());
 
@@ -175,5 +170,19 @@ public class AdminRepository {
         String query = "select major_id, major_name from major where dept_id = ?";
 
         return jdbcTemplate.query(query, new MajorRowMapper(), deptId);
+    }
+
+    public User getUserByUserName(String username) {
+
+        String query = "SELECT user.user_id, user.password, role.role_name\n" +
+                "FROM user\n" +
+                "       LEFT JOIN role on user.role_id = role.role_id\n" +
+                "where user.user_id = ?";
+
+        try {
+            return jdbcTemplate.queryForObject(query, new UserRowMapper(), username);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 }

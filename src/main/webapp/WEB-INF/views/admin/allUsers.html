@@ -1,49 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="layout/main-layout">
 <head>
     <meta charset="UTF-8">
     <title>All Users</title>
-    <link th:href="@{/css/style.css}" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
-<table class="user-table">
-    <thead>
-    <tr>
-        <th>User ID</th>
-        <th>User Name</th>
-        <th>User Age</th>
-        <th>User Gender</th>
-        <th>Department</th>
-        <th>Major</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>Role Name</th>
-        <th>Created On Time</th>
-        <th>Modified On Time</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="allUser: ${allUsers}">
-        <td><a th:href="@{/admin/updateUser/{id}(id=${allUser.userId})}" th:text="${allUser.userId}"></a></td>
-        <td th:text="${allUser.userName}"></td>
-        <td th:text="${allUser.userAge}"></td>
-        <td th:text="${allUser.userGender}"></td>
-        <td><span th:if="${allUser.department}" th:text="${allUser.department.deptName}"></span></td>
-        <td><span th:if="${allUser.major}" th:text="${allUser.major.majorName}"></span></td>
-        <td th:text="${allUser.phone}"></td>
-        <td th:text="${allUser.email}"></td>
-        <td><span th:if="${allUser.role.roleName}" th:text="${allUser.role.roleName}"></span></td>
-        <td th:text="${allUser.formattedCreatedOn}"></td>
-        <td th:text="${allUser.formattedModifiedOn}"></td>
-        <td><a th:href="@{/admin/deleteUser/{id}(id=${allUser.userId})}">
-            <i class="fas fa-trash-alt"></i></a></td>
-    </tr>
-    </tbody>
-</table>
-<a style="background-color: green;" th:href="@{/admin/addUser}">Add User</a>
+<div layout:fragment="content">
+    <div class="pageHeader">Users</div>
+
+    <table class="user-table">
+        <thead>
+        <tr>
+            <th>User ID</th>
+            <th>User Name</th>
+            <th>User Age</th>
+            <th>User Gender</th>
+            <th>Department</th>
+            <th>Major</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Role Name</th>
+            <th>Created On Time</th>
+            <th>Modified On Time</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="allUser: ${allUsers}">
+            <td><a th:href="@{/admin/updateUser/{id}(id=${allUser.userId})}" th:text="${allUser.userId}"></a></td>
+            <td th:text="${allUser.userName}"></td>
+            <td th:text="${allUser.userAge}"></td>
+            <td th:text="${allUser.userGender}"></td>
+            <td><span th:if="${allUser.department}" th:text="${allUser.department.deptName}"></span></td>
+            <td><span th:if="${allUser.major}" th:text="${allUser.major.majorName}"></span></td>
+            <td th:text="${allUser.phone}"></td>
+            <td th:text="${allUser.email}"></td>
+            <td><span th:if="${allUser.role.roleName}" th:text="${allUser.role.roleName}"></span></td>
+            <td th:text="${allUser.formattedCreatedOn}"></td>
+            <td th:text="${allUser.formattedModifiedOn}"></td>
+            <td><a th:href="@{/admin/deleteUser/{id}(id=${allUser.userId})}">
+                <i class="fas fa-trash-alt"></i></a></td>
+        </tr>
+        </tbody>
+    </table>
+    <a style="background-color: green;" th:href="@{/admin/addUser}">Add User</a>
+</div>
 </body>
 </html>

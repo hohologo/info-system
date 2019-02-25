@@ -2,49 +2,60 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
       xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
-    <meta name="viewport" content="width = device-width, initial-scale = 1.0"/>
-    <title>Student Management System</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link th:href="@{/css/style.css}" rel="stylesheet"/>
-    <div layout:fragment="styles"></div>
-</head>
-<body>
-<div class="main">
-    <header>
-        <div class="general">
-            <a th:href="@{/home}">< img class="logo" th:src="@{/images/student.png}"
-                alt="Student Management System"/></a >
-            <h1>Student Management System</h1>
-        </div>
-    </header>
-    <div layout:fragment="navigation">
-        <nav class="main-menu">
-            <ul>
-                <li class="home"><a th:href="@{/home}">Home</a ></li>
-                <li><a th:href="@{/admin/userData}">Show All Users</a ></li>
-                <li><a th:href="@{/admin/userData}">Add New User</a ></li>
-            </ul>
-        </nav>
-    </div>
-
-    <div class="content">
-        <div layout:fragment="content"/>
-    </div>
-
-    <footer>
-        <div class="contact-us">
-            <div layout:fragment="contact-us">
-                For technical assistance, call 1-800-888-8888<br/>
-                <a href=" ">servicedesk@student.edu</a >
+    <head>
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+        <meta name="viewport" content="width = device-width, initial-scale = 1.0"/>
+        <title>Student Management System</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+              integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css">
+        <link th:href="@{/css/style.css}" rel="stylesheet"/>
+        <div layout:fragment="styles"></div>
+    </head>
+    <body>
+        <div class="main">
+            <header>
+                <div class="general">
+                    <a th:href="@{/home}">
+                        <img class="logo" th:src="@{/images/StuMS.jpg}"
+                        alt="Student Management System"/>
+                    </a>
+                    <h1>Student Management System</h1>
+                </div>
+            </header>
+            <div layout:fragment="navigation">
+                <nav class="main-menu">
+                    <ul>
+                        <li class="home">
+                            <a th:href="@{/home}">Home</a>
+                        </li>
+                        <li th:each="menuItem: ${menuItems}">
+                            <a th:href="@{${menuItem.menuUrl}}" th:text="${menuItem.menuTitle}"></a>
+                        </li>
+                        <li class="logout">
+                            <a th:href="@{/logout}">Logout</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-        </div>
-    </footer>
-</div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<div layout:fragment="scripts"></div>
-</body>
+            <div class="content">
+                <div layout:fragment="content"/>
+            </div>
+
+            <footer>
+                <div class="contact-us">
+                    <div layout:fragment="contact-us">
+                        For technical assistance, call 1-800-888-8888
+                        <br/>
+                        <a href="mailto:servicedesk@fhlbdm.com">servicedesk@student.edu</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <div layout:fragment="scripts"></div>
+    </body>
 </html>

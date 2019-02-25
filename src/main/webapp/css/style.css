@@ -69,7 +69,7 @@ input[type=submit] {
 }
 
 a:link, a:visited {
-    padding: 14px 25px;
+    /*padding: 14px 25px;*/
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -89,4 +89,160 @@ a:link, a:visited {
     position: relative;
     top: -10px;
     color: red;
+}
+
+header {
+    background-color: black;
+    margin-top: 0;
+    height: 90px;
+}
+
+.general h1 {
+    color: white;
+    display: inline;
+    vertical-align: bottom;
+    margin-bottom: 5px;
+    padding-top: 0;
+}
+
+img.logo {
+    margin-top: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 50px;
+}
+
+.main {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+.main-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    background-color: darkgreen;
+    color: white;
+}
+
+.main-menu ul li {
+    display: inline;
+    padding: 8px;
+}
+
+li a {
+    color: white;
+    padding: 8px 8px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background: green;
+}
+
+li.home {
+    font-size: 1.2em;
+}
+
+li:last-child {
+    float: right;
+    position: relative;
+    top: -5px;
+}
+
+.content {
+    background: white;
+    margin: 5px;
+}
+
+footer {
+    margin: 10px 0;
+    padding: 10px 0;
+    border-top: 2px solid lightgrey;
+    text-align: center;
+    color: grey;
+    border-radius: 0 0 6px 6px;
+}
+
+.contact-us {
+    border-bottom-left-radius: 10px;
+}
+
+.detailLabel {
+    width: 50px;
+}
+
+.personalDetail {
+    width: 30%;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(211, 211, 211, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888888;
+    width: 80%;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.login {
+    width: 30%;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}
+
+.login Form {
+    margin: 0 auto;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.rememberMe {
+    margin-top: 10px;
+}
+
+.loginError {
+    margin-top: 5px;
+    color: red;
+}
+
+.logoutSuccess {
+    margin-top: 5px;
+    color: blue;
+}
+
+.currentDate {
+    display: inline;
+    float: right;
+    margin-right: 10px;
 }
