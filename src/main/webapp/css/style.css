@@ -246,3 +246,7 @@ footer {
     float: right;
     margin-right: 10px;
 }
+
+.loginError {
+    color: red;
+}

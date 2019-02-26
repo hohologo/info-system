@@ -1,7 +1,9 @@
 package com.clive.support;
 
 
+import com.clive.model.MenuItem;
 import com.clive.model.User;
+import com.clive.service.MenuService;
 import com.clive.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +19,8 @@ import java.io.IOException;
 public class MenuFilter extends OncePerRequestFilter {
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private MenuService menuService;
 
 
     @Override
@@ -27,6 +30,9 @@ public class MenuFilter extends OncePerRequestFilter {
 
         if (user != null) {
 
+            httpServletRequest.setAttribute("menuItems", menuService.getMenuItem(user));
         }
+
+        filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 }

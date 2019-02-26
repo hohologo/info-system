@@ -31,7 +31,7 @@
                             <a th:href="@{/home}">Home</a>
                         </li>
                         <li th:each="menuItem: ${menuItems}">
-                            <a th:href="@{${menuItem.menuUrl}}" th:text="${menuItem.menuTitle}"></a>
+                            <a th:href="@{${menuItem.linkName}}" th:text="${menuItem.menuName}"></a>
                         </li>
                         <li class="logout">
                             <a th:href="@{/logout}">Logout</a>

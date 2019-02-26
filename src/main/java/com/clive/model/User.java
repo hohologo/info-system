@@ -78,4 +78,8 @@ public class User implements UserDetails {
     public boolean isStudent() {
         return rolename.equals("student");
     }
+
+    public String name(String s, String s2) {
+        return s+s2;
+    }
 }

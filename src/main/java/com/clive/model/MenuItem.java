@@ -3,11 +3,11 @@ package com.clive.model;
 public class MenuItem {
 
     private String menuName;
-    private String nameLink;
+    private String linkName;
 
     public MenuItem(String menuName, String nameLink) {
         this.menuName = menuName;
-        this.nameLink = nameLink;
+        this.linkName = nameLink;
     }
 
     public String getMenuName() {
@@ -18,11 +18,11 @@ public class MenuItem {
         this.menuName = menuName;
     }
 
-    public String getNameLink() {
-        return nameLink;
+    public String getLinkName() {
+        return linkName;
     }
 
-    public void setNameLink(String nameLink) {
-        this.nameLink = nameLink;
+    public void setLinkName(String linkName) {
+        this.linkName = linkName;
     }
 }

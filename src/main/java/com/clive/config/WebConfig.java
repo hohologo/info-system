@@ -30,11 +30,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.viewResolver(resolver);
     }
 
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/home")
-                .setViewName("home");
-    }
-
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -60,5 +55,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("/")
                 .setCacheControl(maxAge(8, TimeUnit.HOURS))
                 .resourceChain(true).addResolver(new PathResourceResolver());
+    }
+
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addRedirectViewController("/", "/home");
+        registry.addViewController("/login").setViewName("login");
     }
 }

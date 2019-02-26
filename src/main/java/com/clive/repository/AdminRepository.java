@@ -176,7 +176,7 @@ public class AdminRepository {
 
         String query = "SELECT user.user_id, user.password, role.role_name\n" +
                 "FROM user\n" +
-                "       LEFT JOIN role on user.role_id = role.role_id\n" +
+                "       LEFT JOIN role ON user.role_id = role.role_id\n" +
                 "where user.user_id = ?";
 
         try {
