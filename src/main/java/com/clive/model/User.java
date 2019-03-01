@@ -13,28 +13,28 @@ public class User implements UserDetails {
 
     private String username;
     private String password;
-    private String rolename;
+    private String roleName;
 
     public User() {
     }
 
-    public User(String username, String password, String rolename) {
+    public User(String username, String password, String roleName) {
         this.username = username;
         this.password = password;
-        this.rolename = rolename;
+        this.roleName = roleName;
     }
 
-    public String getRolename() {
-        return rolename;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return asList(new SimpleGrantedAuthority(rolename));
+        return asList(new SimpleGrantedAuthority(roleName));
     }
 
     @Override
@@ -68,15 +68,15 @@ public class User implements UserDetails {
     }
 
     public boolean isAdmin() {
-        return rolename.equals("Administrator");
+        return roleName.equals("Administrator");
     }
 
     public boolean isTeacher() {
-        return rolename.equals("Teacher");
+        return roleName.equals("Teacher");
     }
 
     public boolean isStudent() {
-        return rolename.equals("student");
+        return roleName.equals("Student");
     }
 
     public String name(String s, String s2) {

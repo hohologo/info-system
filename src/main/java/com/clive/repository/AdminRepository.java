@@ -185,4 +185,32 @@ public class AdminRepository {
             return null;
         }
     }
+
+    public UserData getUserDataByUsername(String username) {
+        String query = "SELECT user.user_id,\n" +
+                "       user.user_name,\n" +
+                "       user.user_age,\n" +
+                "       user.user_gender,\n" +
+                "       user.phone,\n" +
+                "       user.email,\n" +
+                "       user.created_on,\n" +
+                "       user.modified_on,\n" +
+                "       department.dept_id,\n" +
+                "       department.dept_name,\n" +
+                "       major.major_id,\n" +
+                "       major.major_name,\n" +
+                "       role.role_id,\n" +
+                "       role.role_name\n" +
+                "FROM user\n" +
+                "       LEFT JOIN major ON user.major_id = major.major_id\n" +
+                "       LEFT JOIN department ON user.department_id = department.dept_id\n" +
+                "       LEFT JOIN role ON user.role_id = role.role_id\n" +
+                "WHERE user.user_name = ?";
+
+        try {
+            return jdbcTemplate.queryForObject(query, new UserDataRowMapper(), username);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }

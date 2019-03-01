@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -65,7 +64,7 @@ public class AdminController {
 
     @GetMapping("/updateUser/{userId}")
     public String showUserInfo(Model model, @PathVariable String userId){
-        UserData userData = adminService.getUserDataById(userId);
+        UserData userData = adminService.getUserDataByUserId(userId);
         model.addAttribute("userData", userData);
         appendOtherInfo(model, userData.getDepartment() == null ? null:userData.getDepartment().getDeptId());
 

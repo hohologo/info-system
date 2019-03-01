@@ -22,7 +22,7 @@ public class MenuService {
 
         if (user.isTeacher()) {
             menuItems.add(new MenuItem("Show All Courses", "/teacher/courses"));
-            menuItems.add(new MenuItem("Add Course", "/teacher/addCourse"));
+            menuItems.add(new MenuItem("Add New Course", "/teacher/course"));
         }
 
         if (user.isStudent()) {

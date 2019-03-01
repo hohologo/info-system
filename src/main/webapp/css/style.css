@@ -250,3 +250,21 @@ footer {
 .loginError {
     color: red;
 }
+
+input[type="password"] {
+    letter-spacing: none;
+    width: 290px;
+    height: 30px;
+    padding-left: 20px;
+}
+
+input[name="username"] {
+    width: 315px;
+    height: 36px;
+}
+
+.loginBotton {
+    text-align: center;
+}
+
+

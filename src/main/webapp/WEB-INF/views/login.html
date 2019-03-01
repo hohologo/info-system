@@ -12,13 +12,13 @@
 <div class="login" layout:fragment="content">
     <form th:action="@{/login}" method="post">
         <div>
-            <label>Username <input type="text" name="username" required autofocus></label>
+            <label>Username <input type="text" name="username" placeholder="Username" required autofocus></label>
         </div>
         <div>
-            <label>Password <input type="text" name="password" required></label>
+            <label>Password <input type="password" name="password" placeholder="Password" required></label>
         </div>
         <br>
-        <input type="submit" value="submit">
+        <div class="loginBotton"><input type="submit" value="login"></div>
         <div th:if="${param.error}" class="loginError">Invalid Username or Password</div>
     </form>
 </div>

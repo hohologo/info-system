@@ -70,9 +70,14 @@ public class AdminService {
         return asList("Male", "Female");
     }
 
-    public UserData getUserDataById(String userId) {
+    public UserData getUserDataByUserId(String userId) {
 
         return adminRepository.getUserDataByUserId(userId);
+    }
+
+    public UserData getUserDataByUsername(String username) {
+
+        return adminRepository.getUserDataByUserId(username);
     }
 }
 
